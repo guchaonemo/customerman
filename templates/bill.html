@@ -1,0 +1,291 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>充值记录</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+	<script type="text/javascript" src="{% static 'js/jquery-1.8.2.min.js ' %}"></script>
+
+	<link rel="stylesheet" href="{% static 'css/records.css ' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/easyui.css ' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/icon.css ' %}">
+	<script type="text/javascript" src="{% static 'js/jquery.min.js ' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.easyui.min.js ' %}"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			/* 滑动/展开 */
+			$("div.menu2 ul li > a.header").click(function(){
+
+				var arrow = $(this).find("span.arrow");
+
+				if(arrow.hasClass("up")){
+					arrow.removeClass("up");
+					arrow.addClass("down");
+				}else if(arrow.hasClass("down")){
+					arrow.removeClass("down");
+					arrow.addClass("up");
+				}
+
+				$(this).parent().find("ul.menu1").slideToggle();
+
+			});
+
+		});
+	</script>
+</head>
+<body>
+	<!-- 左边栏floatLeft -->
+	<div class="menu2 l_aside floatLeft">
+		<div class="l_name">
+			<img src="{% static 'images/logo_blue.png ' %}" alt="优音通信">
+			<p>欢迎您：梅赛德</p>
+		</div>
+		<ul>
+			<li>
+				<a href="basicInfo" class="header">
+					<span class="txt txt_bg1">基本信息</span>
+				</a>
+			</li>
+			<li>
+				<a href="NumberMan" class="header">
+					<span class="txt txt_bg2">号码管理</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" class="header bg_1">
+					<span class="txt txt_bg3">客户管理</span>
+					<span class="arrow down"></span>
+				</a>
+				<ul class="menu1">
+					<li><a href="customer"><span>●</span>客户查询</a></li>
+					<li><a href="records"><span>●</span>充值记录</a></li>
+					<li><a href="bill" class="selected"><span>●</span>账单查询</a></li>
+					<li class="pb12"><a href="reset"><span>●</span>密码重置</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<!-- 右边栏floatRight -->
+	<div class="r_side floatRight">
+		<div class="r_top">
+			<div class="floatLeft">
+				<p class="r_top_p">上次登录时间：2017-07-02  20:20</p>
+			</div>
+			<div class="floatRight">
+				<a href="javascript:void(0);" class="r_top_mm" onclick="$('#dlg').dialog('open')">修改密码</a>
+				<a href="#" class="r_top_tc">退出</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="bi_con">
+			<h3 class="xhx">账单：</h3>
+			<div class="bi_con_cx">
+				<label>号码：</label>
+				<input type="text" class="cs_hm">
+				<label>账期：</label>
+				<input type="date" class="cs_hm1">
+				<span>-</span>
+				<input type="date" class="cs_hm1">
+				<label>费率：</label>
+				<select class="feilv">
+					<option value="代理商费率">代理商费率</option>
+					<option value="代理商费率">代理商费率</option>
+					<option value="代理商费率">代理商费率</option>
+					<option value="代理商费率">代理商费率</option>
+				</select>
+				<button class="gg_cx ml20">查询</button>
+			</div>
+			<!-- <div class="bi_con_table">
+				<table>
+					<tbody>
+						<tr>
+							<th></th>
+							<th>单位名称</th>
+							<th>400号码</th>
+							<th>账期</th>
+							<th>阶段</th>
+							<th>优惠后市话</th>
+							<th>优惠后长途</th>
+							<th>优惠后低消</th>
+							<th>挂机数量</th>
+							<th>漏话数量</th>
+							<th>群发数量</th>
+							<th>短信总数量</th>
+							<th>优惠前市话</th>
+							<th>优惠前长途</th>
+							<th>优惠前低消</th>
+							<th>通话总费用</th>
+							<th>短信总费用</th>
+							<th>业务总费用</th>
+							<th>合计总费用</th>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>演示号码</td>
+							<td>4000000011</td>
+							<td>2017/02</td>
+							<td>综合</td>
+							<td>0.11</td>
+							<td>11.24</td>
+							<td>0.1</td>
+							<td>20</td>
+							<td>0.100</td>
+							<td>11.34</td>
+							<td>2.0</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>23012.00</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>演示号码</td>
+							<td>4000000011</td>
+							<td>2017/02</td>
+							<td>综合</td>
+							<td>0.11</td>
+							<td>11.24</td>
+							<td>0.1</td>
+							<td>20</td>
+							<td>0.100</td>
+							<td>11.34</td>
+							<td>2.0</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>23012.00</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>演示号码</td>
+							<td>4000000011</td>
+							<td>2017/02</td>
+							<td>综合</td>
+							<td>0.11</td>
+							<td>11.24</td>
+							<td>0.1</td>
+							<td>20</td>
+							<td>0.100</td>
+							<td>11.34</td>
+							<td>2.0</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>00</td>
+							<td>23012.00</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="fenye">
+					
+				</div>
+			</div> -->
+			<div class="cus_data">
+			<table id="dg" title="" style="width:960px;height:450px"
+				data-options="rownumbers:true,singleSelect:true,pagination:true,url:'datagrid_data5.json',method:'get'">
+				<thead>
+					<tr>
+						<th data-options="field:'productid',width:80,height:38,align:'center'">单位名称</th>
+						<th data-options="field:'itemid',width:160,height:38,align:'center'">400号码</th>
+						<th data-options="field:'attr1',width:160,height:38,align:'center'">账期</th>
+						<th data-options="field:'listprice',width:80,height:38,align:'center'">阶段</th>
+						<th data-options="field:'unitcost',width:140,height:38,align:'center'">优惠后市话</th>
+						<th data-options="field:'imagesid',width:151,height:38,align:'center'">优惠后长途</th>
+						<th data-options="field:'status',width:161,height:38,align:'center'">优惠后低消</th>
+						<th data-options="field:'productname',width:161,height:38,align:'center'">挂机数量</th>
+						<th data-options="field:'lhnum',width:161,height:38,align:'center'">漏话数量</th>
+						<th data-options="field:'qfnum',width:161,height:38,align:'center'">群发数量</th>
+						<th data-options="field:'dxznum',width:161,height:38,align:'center'">短信总数量</th>
+						<th data-options="field:'yhqsh',width:161,height:38,align:'center'">优惠前市话</th>
+						<th data-options="field:'yhqct',width:161,height:38,align:'center'">优惠前长途</th>
+						<th data-options="field:'yhqdx',width:161,height:38,align:'center'">优惠前低消</th>
+						<th data-options="field:'thzfy',width:161,height:38,align:'center'">通话总费用</th>
+						<th data-options="field:'dxzfy',width:161,height:38,align:'center'">短信总费用</th>
+						<th data-options="field:'ywzfy',width:161,height:38,align:'center'">业务总费用</th>
+						<th data-options="field:'hjzfy',width:161,height:38,align:'center'">合计总费用</th>
+					</tr>
+				</thead>
+			</table>
+			<script type="text/javascript">
+				$(function(){
+			var pager = $('#dg').datagrid().datagrid('getPager');	
+			// get the pager of datagrid
+			pager.pagination({
+				/*buttons:[{
+					iconCls:'icon-search',
+					handler:function(){
+						alert('search');
+					}
+				},{
+					iconCls:'icon-add',
+					handler:function(){
+						alert('add');
+					}
+				},{
+					iconCls:'icon-edit',
+					handler:function(){
+						alert('edit');
+					}
+				}]*/
+			});	
+		
+		})
+	</script>
+</div>
+		</div>
+	</div>
+
+	<div class="clear"></div>
+
+
+	<!-- 修改密码对话框 -->
+	<div id="dlg" class="easyui-dialog pass_dlg2" title="修改密码" style="width:80%;height:315px;max-width:460px;padding:10px" data-options="
+			modal:true,
+			closed:true,
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+			<div class="inp_group">
+				<label>旧&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+				<input type="text">
+			</div>
+			<div class="inp_group">
+				<label>新&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+				<input type="text">
+			</div>
+			<div class="inp_group">
+				<label>确认新密码：</label>
+				<input type="text">
+			</div>
+			<div class="btn_group">
+				<button class="d_btn_qd1" onclick="javascript:alert('确定')">确&nbsp;&nbsp;定</button>
+			<button class="d_btn_qx ml40" onclick="$('#dlg').dialog('close')">取&nbsp;&nbsp;消</button>
+			</div>
+	</div>
+
+	<script>
+		$(function(){
+			$('#dlg').parent().addClass('pass_dlg');
+			$('#dlg').prev().addClass('change_pass');
+		})
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>充值记录</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="{% static 'css/reset.css ' %}">
+	<link rel="stylesheet" href="{% static 'css/login.css ' %}">
+
+	<script type="text/javascript" src="{% static 'js/jquery-1.8.2.min.js ' %}"></script>
+
+	<link rel="stylesheet" href="{% static 'css/records.css ' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/easyui.css ' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/icon.css ' %}">
+	<script type="text/javascript" src="{% static 'js/jquery.min.js ' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.easyui.min.js ' %}"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			/* 滑动/展开 */
+			$("div.menu2 ul li > a.header").click(function(){
+
+				var arrow = $(this).find("span.arrow");
+
+				if(arrow.hasClass("up")){
+					arrow.removeClass("up");
+					arrow.addClass("down");
+				}else if(arrow.hasClass("down")){
+					arrow.removeClass("down");
+					arrow.addClass("up");
+				}
+
+				$(this).parent().find("ul.menu1").slideToggle();
+
+			});
+
+		});
+	</script>
+
+</head>
+<body>
+
+
+	
+
+
+
+
+	<!-- 左边栏floatLeft -->
+	<div class="menu2 l_aside floatLeft">
+		<div class="l_name">
+			<img src="{% static 'images/logo_blue.png ' %}" alt="优音通信">
+			<p>欢迎您：梅赛德</p>
+		</div>
+		<ul>
+			<li>
+				<a href="basicInfo" class="header">
+					<span class="txt txt_bg1">基本信息</span>
+				</a>
+			</li>
+			<li>
+				<a href="NumberMan" class="header">
+					<span class="txt txt_bg2">号码管理</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" class="header bg_1">
+					<span class="txt txt_bg3">客户管理</span>
+					<span class="arrow down"></span>
+				</a>
+				<ul class="menu1">
+					<li><a href="customer"><span>●</span>客户查询</a></li>
+					<li><a href="records" class="selected"><span>●</span>充值记录</a></li>
+					<li><a href="bill"><span>●</span>账单查询</a></li>
+					<li class="pb12"><a href="reset"><span>●</span>密码重置</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<!-- 右边栏floatRight -->
+	<div class="r_side floatRight">
+		<div class="r_top">
+			<div class="floatLeft">
+				<p class="r_top_p">上次登录时间：2017-07-02  20:20</p>
+			</div>
+			<div class="floatRight">
+				<a href="javascript:void(0);" class="r_top_mm" onclick="$('#dlg').dialog('open')">修改密码</a>
+				<a href="#" class="r_top_tc">退出</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="re_con">
+			<div class="re_con_cz">
+				<h3 class="xhx">充值：</h3>
+				<div class="re_con_cz1">
+					<label>号码:</label>
+					<input type="text" class="re_input">
+					<label>充值类型：</label>
+					<select name="" id="" class="re_se">
+						<option value="套餐外充值">套餐外充值</option>
+						<option value="套餐外充值">套餐外充值</option>
+						<option value="套餐外充值">套餐外充值</option>
+						<option value="套餐外充值">套餐外充值</option>
+					</select>
+					<label>开始时间：</label>
+					<input type="date" value="日历" class="re_input1">
+					<label>结束时间：</label>
+					<input type="date" value="日历" class="re_input1">
+					<button class="gg_cx ml20">查询</button>
+				</div>
+			</div>
+
+			<div class="re_con_czjl">
+				<h3 class="xhx">充值记录：</h3>
+				<!-- <div class="re_table">
+					<table>
+						<tbody>
+							<tr>
+								<th>号码</th>
+								<th>充值时间</th>
+								<th>充值金额</th>
+								<th>充值类型</th>
+								<th>余额</th>
+								<th>备注</th>
+							</tr>
+							<tr>
+								<td>4000000011</td>
+								<td>17/01/03</td>
+								<td>50000.00</td>
+								<td>套餐内充值</td>
+								<td>600000.00</td>
+								<td>似仿佛我</td>
+							</tr>
+							<tr>
+								<td>4000000011</td>
+								<td>17/01/03</td>
+								<td>50000.00</td>
+								<td>套餐内充值</td>
+								<td>600000.00</td>
+								<td>似仿佛我</td>
+							</tr>
+							<tr>
+								<td>4000000011</td>
+								<td>17/01/03</td>
+								<td>50000.00</td>
+								<td>套餐内充值</td>
+								<td>600000.00</td>
+								<td>似仿佛我</td>
+							</tr>
+							<tr>
+								<td>4000000011</td>
+								<td>17/01/03</td>
+								<td>50000.00</td>
+								<td>套餐内充值</td>
+								<td>600000.00</td>
+								<td>似仿佛我</td>
+							</tr>
+							<tr>
+								<td>4000000011</td>
+								<td>17/01/03</td>
+								<td>50000.00</td>
+								<td>套餐内充值</td>
+								<td>600000.00</td>
+								<td>似仿佛我</td>
+							</tr>
+							<tr>
+								<td>4000000011</td>
+								<td>17/01/03</td>
+								<td>50000.00</td>
+								<td>套餐内充值</td>
+								<td>600000.00</td>
+								<td>似仿佛我</td>
+							</tr>
+						</tbody>
+					</table>
+				</div> -->
+			</div>
+
+			<div class="re_data">
+			<table id="dg" title="" style="width:960px;height:450px"
+				data-options="rownumbers:true,singleSelect:true,pagination:true,url:'datagrid_data1.json',method:'get'">
+				<thead>
+					<tr>
+						<th data-options="field:'itemid',width:160,height:38,align:'center'">号码</th>
+						<th data-options="field:'productid',width:160,height:38,align:'center'">充值时间</th>
+						<th data-options="field:'listprice',width:140,height:38,align:'center'">充值金额</th>
+						<th data-options="field:'unitcost',width:160,height:38,align:'center'">充值类型</th>
+						<th data-options="field:'attr1',width:151,height:38,align:'center'">余额</th>
+						<th data-options="field:'status',width:161,height:38,align:'center'">备注</th>
+					</tr>
+				</thead>
+			</table>
+			<script type="text/javascript">
+				$(function(){
+			var pager = $('#dg').datagrid().datagrid('getPager');	// get the pager of datagrid
+			pager.pagination({
+				/*buttons:[{
+					iconCls:'icon-search',
+					handler:function(){
+						alert('search');
+					}
+				},{
+					iconCls:'icon-add',
+					handler:function(){
+						alert('add');
+					}
+				},{
+					iconCls:'icon-edit',
+					handler:function(){
+						alert('edit');
+					}
+				}]*/
+			});			
+		})
+	</script>
+</div>
+			
+		</div>
+	</div>
+	<div class="clear"></div>
+
+
+
+
+
+		<!-- 修改密码对话框 -->
+		
+	<div id="dlg" class="easyui-dialog pass_dlg2" title="修改密码" style="width:80%;height:315px;max-width:460px;padding:10px" data-options="
+			modal:true,
+			closed:true,
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+			<div class="inp_group">
+				<label>旧&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+				<input type="text">
+			</div>
+			<div class="inp_group">
+				<label>新&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+				<input type="text">
+			</div>
+			<div class="inp_group">
+				<label>确认新密码：</label>
+				<input type="text">
+			</div>
+			<div class="btn_group">
+				<button class="d_btn_qd1" onclick="javascript:alert('确定')">确&nbsp;&nbsp;定</button>
+			<button class="d_btn_qx ml40" onclick="$('#dlg').dialog('close')">取&nbsp;&nbsp;消</button>
+			</div>
+	</div>
+
+	<script>
+		$(function(){
+			$('#dlg').parent().addClass('pass_dlg');
+			$('#dlg').prev().addClass('change_pass');
+		})
+	</script>
+</body>
+</html>

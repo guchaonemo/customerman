@@ -1,0 +1,440 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>号码管理</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="{% static 'css/reset.css ' %}">
+	<link rel="stylesheet" href="{% static 'css/login.css ' %}">
+	<link rel="stylesheet" href="{% static 'css/records.css ' %}">
+	<script type="text/javascript" src="{% static 'js/jquery-1.8.2.min.js ' %}"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/easyui.css ' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/icon.css ' %}">
+	<script type="text/javascript" src="{% static 'js/jquery.min.js ' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.easyui.min.js ' %}"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			/* 滑动/展开 */
+			$("div.menu2 ul li > a.header").click(function(){
+
+				var arrow = $(this).find("span.arrow");
+
+				if(arrow.hasClass("up")){
+					arrow.removeClass("up");
+					arrow.addClass("down");
+				}else if(arrow.hasClass("down")){
+					arrow.removeClass("down");
+					arrow.addClass("up");
+				}
+
+				$(this).parent().find("ul.menu1").slideToggle();
+
+			});
+
+		});
+	</script>
+</head>
+<body>
+	<!-- 左边栏floatLeft -->
+	<div class="menu2 l_aside floatLeft">
+		<div class="l_name">
+			<img src="{% static 'images/logo_blue.png ' %}" alt="优音通信">
+			<p>欢迎您：梅赛德</p>
+		</div>
+		<ul>
+			<li>
+				<a href="basicInfo" class="header">
+					<span class="txt txt_bg1">基本信息</span>
+				</a>
+			</li>
+			<li>
+				<a href="NumberMan" class="header bg_1">
+					<span class="txt txt_bg2">号码管理</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" class="header">
+					<span class="txt txt_bg3">客户管理</span>
+					<span class="arrow down"></span>
+				</a>
+				<ul class="menu1">
+					<li><a href="customer"><span>●</span>客户查询</a></li>
+					<li><a href="records"><span>●</span>充值记录</a></li>
+					<li><a href="bill"><span>●</span>账单查询</a></li>
+					<li class="pb12"><a href="reset"><span>●</span>密码重置</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+
+	<!-- 右边栏floatRight -->
+	<div class="r_side floatRight">
+		<div class="r_top">
+			<div class="floatLeft">
+				<p class="r_top_p">上次登录时间：2017-07-02  20:20</p>
+			</div>
+			<div class="floatRight">
+				<a href="javascript:void(0)" class="r_top_mm" onclick="$('#dlg').dialog('open')">修改密码</a>
+				<a href="#" class="r_top_tc">退出</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="n_con">
+			<div class="n_con_hm">
+				<h3>号码查询：</h3>
+				<div class="n_con_hm1 floatLeft">
+					<span>400-</span>
+					<input type="text">
+					<input type="text">
+					<input type="text">
+					<input type="text">
+					<input type="text">
+					<input type="text">
+					<input type="text">
+					<input type="text">
+					<input type="button" value="清除" class="n_qc">
+				</div>
+				<div class="n_con_hm2 floatRight">
+					<span>多号码查询（用英文逗号分隔）:</span>
+					<input type="text">
+					<input type="button" value="查询" class="n_cx">
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="n_con_td">
+				<h3>特定查询：</h3>
+				<div class="n_con_td1">
+					<div class="n_con_td1_sp floatLeft">
+						<span>价位：</span>
+					</div>
+					<ul class="n_con_td1_ul floatLeft">
+						<li>3000元以下</li>
+						<li>3000-5000元</li>
+						<li>5000-7000元</li>
+						<li>7000-10000元</li>
+						<li>10000元以上</li>
+					</ul>
+					<div class="n_con_td1_qd floatLeft">
+						<input type="text">
+						<span>-</span>
+						<input type="text">
+						<input type="button" value="确定" class="qued">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="n_con_td2">
+					<div class="n_con_td2_sp floatLeft">
+						<span>尾号：</span>
+					</div>
+					<ul class="n_con_td2_ul floatLeft">
+						<li>AAA</li>
+						<li>ABBA</li>
+						<li>ABAB</li>
+						<li>AABB</li>
+						<li>ABC</li>
+						<li>AA</li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+			</div>
+
+
+			<div class="n_con_sx">
+				<h3>筛选条件：</h3>
+				<div class="n_con_sx1">
+					<select class="n_con_sx1_sl1">
+						<option value ="城市">城市</option>
+						<option value ="saab">Saab</option>
+						<option value="opel">Opel</option>
+						<option value="audi">Audi</option>
+					</select>
+					<select class="n_con_sx1_sl1 ml55">
+						<option value ="数字要求">数字要求</option>
+						<option value ="saab">Saab</option>
+						<option value="opel">Opel</option>
+						<option value="audi">Audi</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="n_con_yx">
+				<h3>已选条件：<span>（已选条件顺序取决于筛选条件的选择顺序）</span></h3>
+				<div class="n_con_yx1">
+					<ul class="clearFloat">
+						<li><span>沈阳</span><i>×</i></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="n_con_lb">
+				<div class="n_con_lb_xz">
+					<input type="button" value="选择导出" class="xz_dc">
+					<input type="button" value="随机导出100条可选号码" class="xz_sj">
+					<label>价格：</label>
+					<select class="xz_sl">
+						<option value="请选择">请选择</option>
+						<option value="1000元以上">1000元以上</option>
+						<option value="1000-3000">1000-3000</option>
+						<option value="3000-5000">3000-5000</option>
+						<option value="5000-7000">5000-7000</option>
+						<option value="7000-10000">7000-10000</option>
+					</select>
+					<label>状态：</label>
+					<select class="xz_sl">
+						<option value="全部">全部</option>
+						<option value="可预占">可预占</option>
+						<option value="可续占">可续占</option>
+						<option value="已释放">已释放</option>
+					</select>
+				</div>
+				<!-- <div class="n_con_lb_table">
+					<table>
+						<tbody>
+							<tr>
+								<th>400号码</th>
+								<th>状态</th>
+								<th>是否自属</th>
+								<th>套餐标价</th>
+								<th>运营商</th>
+								<th>操作</th>
+							</tr>
+							<tr>
+								<td>4006003336</td>
+								<td>可预占</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>联通</td>
+								<td>
+									<button class="btn_gg btn_red" onclick="$('#yz').dialog('open')">预占</button>
+									<button class="btn_gg btn_hs ml15" onclick="$('#sf').dialog('open')">释放</button>
+								</td>
+							</tr>
+							<tr>
+								<td>4006003336</td>
+								<td>可预占</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>联通</td>
+								<td>
+									<button class="btn_gg btn_red" onclick="$('#yz').dialog('open')">预占</button>
+									<button class="btn_gg btn_hs ml15" onclick="$('#sf').dialog('open')">释放</button>
+								</td>
+							</tr>
+							<tr>
+								<td>4006003336</td>
+								<td>可预占</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>联通</td>
+								<td>
+									<button class="btn_gg btn_sl" onclick="$('#xz').dialog('open')">续占</button>
+									<button class="btn_gg btn_ql ml15" onclick="$('#sf').dialog('open')">释放</button>
+								</td>
+							</tr>
+							<tr>
+								<td>4006003336</td>
+								<td>可预占</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>联通</td>
+								<td>
+									<button class="btn_gg btn_red" onclick="$('#yz').dialog('open')">预占</button>
+									<button class="btn_gg btn_hs ml15" onclick="$('#sf').dialog('open')">释放</button>
+								</td>
+							</tr>
+							<tr>
+								<td>4006003336</td>
+								<td>可预占</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>联通</td>
+								<td>
+									<button class="btn_gg btn_red" onclick="$('#yz').dialog('open')">预占</button>
+									<button class="btn_gg btn_hs ml15" onclick="$('#sf').dialog('open')">释放</button>
+								</td>
+							</tr>
+							<tr>
+								<td>4006003336</td>
+								<td>可预占</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>联通</td>
+								<td>
+									<button class="btn_gg btn_red" onclick="$('#yz').dialog('open')">预占</button>
+									<button class="btn_gg btn_hs ml15" onclick="$('#sf').dialog('open')">释放</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div> -->
+
+				<div class="num_data">
+			<table id="dg" title="" style="width:960px;height:450px"
+				data-options="rownumbers:true,singleSelect:true,pagination:true,url:'datagrid_data2.json',method:'get'">
+				<thead>
+					<tr>
+						<th data-options="field:'itemid',width:160,height:38,align:'center'">400号码</th>
+						<th data-options="field:'productid',width:160,height:38,align:'center'">状态</th>
+						<th data-options="field:'listprice',width:140,height:38,align:'center'">是否自属</th>
+						<th data-options="field:'unitcost',width:160,height:38,align:'center'">套餐标价</th>
+						<th data-options="field:'attr1',width:151,height:38,align:'center'">运营商</th>
+						<th data-options="field:'status',width:161,height:38,align:'center'">操作</th>
+						<!-- <th field="status" formatter="sort_format" width="100">sort</th> -->  
+					</tr>
+				</thead>
+			</table>
+			<script type="text/javascript">
+				$(function(){
+			var pager = $('#dg').datagrid().datagrid('getPager');	
+			// get the pager of datagrid
+			pager.pagination({
+				/*buttons:[{
+					iconCls:'icon-search',
+					handler:function(){
+						alert('search');
+					}
+				},{
+					iconCls:'icon-add',
+					handler:function(){
+						alert('add');
+					}
+				},{
+					iconCls:'icon-edit',
+					handler:function(){
+						alert('edit');
+					}
+				}]*/
+			});	
+		
+		})
+	</script>
+</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+
+
+	<!-- 修改密码对话框 -->
+	<div id="dlg" class="easyui-dialog pass_dlg2" title="修改密码" style="width:80%;height:315px;max-width:460px;padding:10px" data-options="
+			modal:true,
+			closed:true,
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+			<div class="inp_group">
+				<label>旧&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+				<input type="text">
+			</div>
+			<div class="inp_group">
+				<label>新&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+				<input type="text">
+			</div>
+			<div class="inp_group">
+				<label>确认新密码：</label>
+				<input type="text">
+			</div>
+			<div class="btn_group">
+				<button class="d_btn_qd1" onclick="javascript:alert('确定')">确&nbsp;&nbsp;定</button>
+			<button class="d_btn_qx ml40" onclick="$('#dlg').dialog('close')">取&nbsp;&nbsp;消</button>
+			</div>
+			
+	</div>
+	<!-- 预占 -->
+	<div id="yz" class="easyui-dialog pass_dlg2 yz" title="预占" style="width:80%;height:225px;max-width:360px;padding:10px" data-options="
+			modal:true,
+			closed:true,
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+			<label>请填写预定价：</label>
+			<input type="text">
+			<p class="mt20">备注：预定价不能低于套餐价5000.00</p>
+			<div class="btn_group">
+				<button class="d_btn_qd1" onclick="javascript:alert('提交')">提&nbsp;&nbsp;交</button>
+			<button class="d_btn_qx ml20" onclick="$('#yz').dialog('close')">取&nbsp;&nbsp;消</button>
+			</div>
+			
+	</div>
+
+	<!-- 续占 -->
+	<div id="xz" class="easyui-dialog pass_dlg3 xz" title="续占" style="width:80%;height:290px;max-width:360px;padding:10px" data-options="
+			modal:true,
+			closed:true,
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+			<h5>您正在执行续占操作</h5>
+			<div class="xz_sel">
+				<label>请选择续占理由：</label>
+				<select name="" id="" class="xz_sel1">
+					<option value="请选择">请选择</option>
+					<option value="好">好</option>
+					<option value="优">优</option>
+					<option value="良">良</option>
+				</select>
+			</div>
+			<div class="xz_sel">
+				<label>续&nbsp;&nbsp;&nbsp;占&nbsp;&nbsp;&nbsp;&nbsp;天&nbsp;&nbsp;&nbsp;数：</label>
+				<select name="" id="" class="xz_sel1">
+					<option value="请选择">请选择</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+				</select>
+			</div>
+			<div>
+				<input type="button" class="xz_sc" value="点击上传证件">
+			</div>
+			<button class="d_btn_qd" onclick="$('#xz').dialog('close')">确&nbsp;&nbsp;定</button>
+			
+	</div>
+
+
+	<!-- 释放 -->
+	<div id="sf" class="easyui-dialog pass_dlg3 sf" title="释放" style="width:80%;height:235px;max-width:360px;padding:10px" data-options="
+			modal:true,
+			closed:true,
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+			<p>释放后，可能会被其他用户预占，<br>是否确认释放？</p>
+			<div class="btn_group">
+				<button class="d_btn_qd1" onclick="javascript:alert('提交')">提&nbsp;&nbsp;交</button>
+			<button class="d_btn_qx ml20" onclick="$('#sf').dialog('close')">取&nbsp;&nbsp;消</button>
+			</div>
+			
+	</div>
+
+	
+	
+	<script>
+		$(function(){
+			$('#dlg').parent().addClass('pass_dlg');
+			$('#dlg').prev().addClass('change_pass');
+			$('#yz').parent().addClass('pass_dlg');
+			$('#yz').prev().addClass('change_pass');
+			$('#xz').parent().addClass('pass_dlg');
+			$('#xz').prev().addClass('change_pass');
+			$('#sf').parent().addClass('pass_dlg');
+			$('#sf').prev().addClass('change_pass');
+
+
+			// function operation() {                            
+			// 	return "<button class='btn_gg btn_red'>预占</button><button class='btn_gg btn_hs ml15'>释放</button>";
+			// }
+		})
+	</script>
+
+</body>
+</html>

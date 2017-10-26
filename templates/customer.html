@@ -1,0 +1,461 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>客户查询</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="{% static 'css/reset.css ' %}">
+	<link rel="stylesheet" href="{% static 'css/login.css ' %}">
+
+	<script type="text/javascript" src="{% static 'js/jquery-1.8.2.min.js ' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'css/records.css ' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/easyui.css ' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/icon.css ' %}">
+	<script type="text/javascript" src="{% static 'js/jquery.min.js ' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.easyui.min.js ' %}"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			/* 滑动/展开 */
+			$("div.menu2 ul li > a.header").click(function(){
+
+				var arrow = $(this).find("span.arrow");
+
+				if(arrow.hasClass("up")){
+					arrow.removeClass("up");
+					arrow.addClass("down");
+				}else if(arrow.hasClass("down")){
+					arrow.removeClass("down");
+					arrow.addClass("up");
+				}
+
+				$(this).parent().find("ul.menu1").slideToggle();
+
+			});
+
+		});
+	</script>
+</head>
+<body>
+	<!-- 左边栏floatLeft -->
+	<div class="menu2 l_aside floatLeft">
+		<div class="l_name">
+			<img src="{% static 'images/logo_blue.png ' %}" alt="优音通信">
+			<p>欢迎您：梅赛德</p>
+		</div>
+		<ul>
+			<li>
+				<a href="basicInfo" class="header">
+					<span class="txt txt_bg1">基本信息</span>
+				</a>
+			</li>
+			<li>
+				<a href="NumberMan" class="header">
+					<span class="txt txt_bg2">号码管理</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" class="header bg_1">
+					<span class="txt txt_bg3">客户管理</span>
+					<span class="arrow down"></span>
+				</a>
+				<ul class="menu1">
+					<li><a href="customer" class="selected"><span>●</span>客户查询</a></li>
+					<li><a href="records"><span>●</span>充值记录</a></li>
+					<li><a href="bill"><span>●</span>账单查询</a></li>
+					<li class="pb12"><a href="reset"><span>●</span>密码重置</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="consump" class="header">
+					<span class="txt txt_bg2">消费记录</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<!-- 右边栏floatRight -->
+	<div class="r_side floatLeft">
+		<div class="r_top">
+			<div class="floatLeft">
+				<p class="r_top_p">上次登录时间：2017-07-02  20:20</p>
+			</div>
+			<div class="floatRight">
+				<a href="javascript:void(0);" class="r_top_mm" onclick="$('#dlg').dialog('open')">修改密码</a>
+				<a href="#" class="r_top_tc">退出</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="c_con">
+			<div class="c_con_tj">
+				<h3 class="xhx">条件查询：</h3>
+				<div class="tj_cx">
+					<label>客户名称:</label>
+					<input type="text">
+					<label class="ml30">客户号码:</label>
+					<input type="text">
+					<button class="gg_cx ml20">查询</button>
+				</div>
+			</div>
+			<div class="c_con_cx">
+				<div class="xhx">
+					<h5>查询列表：</h5>
+					<div class="cx_radio">
+						<input type="radio">
+						<img src="{% static 'images/b_jq_red.png ' %}" alt="">
+						<span>余额预警</span>
+						<input type="radio" class="ml20">
+						<img src="{% static 'images/c_dq.png ' %}" alt="">
+						<span>到期预警</span>
+					</div>
+				</div>
+				<!-- <div class="cx_table">
+					<table>
+						<tbody>
+							<tr>
+								<th>预警</th>
+								<th>客户名称</th>
+								<th>号码</th>
+								<th>号码状态</th>
+								<th>余额</th>
+								<th>到期时间</th>
+								<th>操作</th>
+							</tr>
+							<tr>
+								<td>
+									<img src="{% static 'images/b_jq_red.png ' %}" alt="">
+								</td>
+								<td>豆腐火锅</td>
+								<td>4000000011</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>17/01/03</td>
+								<td>
+									<button class="btn_gg btn_ql" onclick="$('#xq').dialog('open')">详情</button>
+									<button class="btn_gg btn_red ml15" onclick="$('#cz').dialog('open')">充值</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img src="{% static 'images/b_jq_red.png ' %}" alt="">
+								</td>
+								<td>豆腐火锅</td>
+								<td>4000000011</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>17/01/03</td>
+								<td>
+									<button class="btn_gg btn_ql" onclick="$('#xq').dialog('open')">详情</button>
+									<button class="btn_gg btn_red ml15" onclick="$('#cz').dialog('open')">充值</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img src="{% static 'images/b_jq_red.png ' %}" alt="">
+								</td>
+								<td>豆腐火锅</td>
+								<td>4000000011</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>17/01/03</td>
+								<td>
+									<button class="btn_gg btn_ql" onclick="$('#xq').dialog('open')">详情</button>
+									<button class="btn_gg btn_red ml15" onclick="$('#cz').dialog('open')">充值</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img src="{% static 'images/c_dq.png ' %}" alt="">
+								</td>
+								<td>豆腐火锅</td>
+								<td>4000000011</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>17/01/03</td>
+								<td>
+									<button class="btn_gg btn_ql" onclick="$('#xq').dialog('open')">详情</button>
+									<button class="btn_gg btn_red ml15" onclick="$('#cz').dialog('open')">充值</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img src="{% static 'images/c_dq.png ' %}" alt="">
+								</td>
+								<td>豆腐火锅</td>
+								<td>4000000011</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>17/01/03</td>
+								<td>
+									<button class="btn_gg btn_ql" onclick="$('#xq').dialog('open')">详情</button>
+									<button class="btn_gg btn_red ml15" onclick="$('#cz').dialog('open')">充值</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img src="{% static 'images/c_dq.png ' %}" alt="">
+								</td>
+								<td>豆腐火锅</td>
+								<td>4000000011</td>
+								<td>否</td>
+								<td>15000</td>
+								<td>17/01/03</td>
+								<td>
+									<button class="btn_gg btn_ql" onclick="$('#xq').dialog('open')">详情</button>
+									<button class="btn_gg btn_red ml15" onclick="$('#cz').dialog('open')">充值</button>
+								</td>
+							</tr>
+				
+						</tbody>
+					</table>
+				</div> -->
+				<div class="cus_data">
+			<table id="dg" title="" style="width:960px;height:450px"
+				data-options="rownumbers:true,singleSelect:true,pagination:true,url:'datagrid_data3.json',method:'get'">
+				<thead>
+					<tr>
+					<th data-options="field:'imagesid',width:80,height:38,align:'center',formatter:callme">预警</th>
+						<th data-options="field:'productid',width:160,height:38,align:'center'">客户名称</th>
+						<th data-options="field:'itemid',width:160,height:38,align:'center'">号码</th>
+						<th data-options="field:'listprice',width:80,height:38,align:'center'">号码状态</th>
+						<th data-options="field:'unitcost',width:140,height:38,align:'center'">余额</th>
+						<th data-options="field:'attr1',width:151,height:38,align:'center'">到期时间</th>
+						<th data-options="field:'status',formatter:operation,width:161,height:38,align:'center'">操作</th>
+						<!-- <th field="status" formatter="sort_format" width="100">sort</th> -->  
+					</tr>
+				</thead>
+			</table>
+			<script type="text/javascript">
+				$(function(){
+			var pager = $('#dg').datagrid().datagrid('getPager');	
+			// get the pager of datagrid
+			pager.pagination({
+				/*buttons:[{
+					iconCls:'icon-search',
+					handler:function(){
+						alert('search');
+					}
+				},{
+					iconCls:'icon-add',
+					handler:function(){
+						alert('add');
+					}
+				},{
+					iconCls:'icon-edit',
+					handler:function(){
+						alert('edit');
+					}
+				}]*/
+			});	
+		
+		})
+	</script>
+</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+
+	<!-- 修改密码对话框 -->
+	<div id="dlg" class="easyui-dialog pass_dlg2" title="修改密码" style="width:80%;height:315px;max-width:460px;padding:10px" data-options="
+			modal:true,
+			closed:true,
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+			<div class="inp_group">
+				<label>旧&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+				<input type="text">
+			</div>
+			<div class="inp_group">
+				<label>新&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+				<input type="text">
+			</div>
+			<div class="inp_group">
+				<label>确认新密码：</label>
+				<input type="text">
+			</div>
+			<div class="btn_group">
+				<button class="d_btn_qd1" onclick="javascript:alert('确定')">确&nbsp;&nbsp;定</button>
+			<button class="d_btn_qx ml40" onclick="$('#dlg').dialog('close')">取&nbsp;&nbsp;消</button>
+			</div>
+	</div>
+
+
+	<!-- 客户详情对话框 -->
+	<div id="xq" class="easyui-dialog pass_dlg2 xq" title="客户详情" style="width:80%;height:515px;max-width:920px;padding:10px" data-options="
+			modal:true,
+			closed:true,
+			buttons:'#bb',
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+
+			<div class="xq_kh">
+				<h3 class="xhx1 text_left">条件查询：</h3>
+				<table>
+					<tbody>
+						<tr>
+							<th>客户名称：</th>
+							<td>规划局的</td>
+							<th>创建时间：</th>
+							<td>2017/05/01</td>
+							<th>联 系 人：</th>
+							<td>规划局的</td>
+						</tr>
+						<tr>
+							<th class="letter10">电       话:</th>
+							<td>2017/05/01</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="xq_tc">
+				<h3 class="xhx1 text_left">套餐信息：</h3>
+				<table>
+					<tbody>
+						<tr>
+							<th>400号码：</th>
+							<td>规划局的</td>
+							<th>号码状态：</th>
+							<td>2017/05/01</td>
+							<th class="letter8">余      额：</th>
+							<td>规划局的</td>
+						</tr>
+						<tr>
+							<th>套餐类型：</th>
+							<td>规划局的</td>
+							<th>通话套餐：</th>
+							<td>2017/05/01</td>
+							<th>短信套餐：</th>
+							<td>2017/05/01</td>
+						</tr>
+						<tr>
+							<th>开通时间：</th>
+							<td>规划局的</td>
+							<th>套餐期限：</th>
+							<td>2017/05/01</td>
+							<th>到期时间：</th>
+							<td>2017/05/01</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+	</div>
+	<div id="bb" class="bb_btn">
+		<a href="javascript:void(0);" class="bb_btn_cz" onclick="$('#cz').dialog('open')">充值</a>
+		<span class="mlr15">|</span>
+		<a href="javascript:void(0);" class="bb_btn_yj mr50" onclick="$('#yjsz').dialog('open')">预警设置</a>
+	</div>
+
+
+
+	<!-- 充值对话框 -->
+	<div id="cz" class="easyui-dialog pass_dlg2 cz" title="充值" style="width:80%;height:230px;max-width:490px;padding:10px" data-options="
+			modal:true,
+			closed:true,
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+			<div class="cz_lx">
+				<label>充值类型：</label>
+				<select name="" id="" class="cz_lx_se">
+					<option value="套餐外充值">套餐外充值</option>
+					<option value="套餐外充值">套餐外充值</option>
+					<option value="套餐外充值">套餐外充值</option>
+					<option value="套餐外充值">套餐外充值</option>
+				</select>
+			</div>
+			<div class="cz_je">
+				<label>充值金额：</label>
+				<input type="text">
+				<span>元<i>*</i></span>
+				<label class="ml30">优音扣款：</label>
+				<input type="text">
+				<span>元<i>*</i></span>
+			</div>
+			<div class="cz_ye">
+				<span>客户余额：</span>
+				<span>60000元</span>
+			</div>
+			<div class="btn_group">
+				<button class="d_btn_qd1 ml90" onclick="$('#czwc').dialog('open')">确&nbsp;&nbsp;定</button>
+			<button class="d_btn_qx ml40" onclick="$('#cz').dialog('close')">取&nbsp;&nbsp;消</button>
+			</div>
+
+	</div>
+
+
+	<!-- 充值完成对话框 -->
+	<div id="czwc" class="easyui-dialog pass_dlg1 czwc" title="" style="width:80%;height:170px;max-width:175px;padding:10px" data-options="
+			modal:true,
+			closable: false,
+			closed:true,
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+			<img src="{% static 'images/czwc.png ' %}" alt="充值完成">
+			<h5>充值完成</h5>
+	</div>
+
+
+	<!-- 预警设置对话框 -->
+	<div id="yjsz" class="easyui-dialog pass_dlg2 yjsz" title="预警设置" style="width:80%;height:225px;max-width:360px;padding:10px" data-options="
+			modal:true,
+			closed:true,
+			onResize:function(){
+				$(this).dialog('center');
+			}">
+			<div class="yjsz_dq">
+				<label>到期预警：</label>
+				<input type="text">
+				<input type="text">
+			</div>
+			<div class="yjsz_ye">
+				<label>预警余额：</label>
+				<input type="text">
+				<span>元</span>
+			</div>
+
+			<div class="btn_group">
+				<button class="d_btn_qd1 ml25" onclick="javascript:alert('确定')">确&nbsp;&nbsp;定</button>
+			<button class="d_btn_qx ml40" onclick="$('#yjsz').dialog('close')">取&nbsp;&nbsp;消</button>
+			</div>
+	</div>
+
+
+
+
+	<script>
+		$(function(){
+			$('#dlg').parent().addClass('pass_dlg');
+			$('#dlg').prev().addClass('change_pass');
+			$('#xq').parent().addClass('pass_dlg');
+			$('#xq').prev().addClass('change_pass');
+			$('#cz').parent().addClass('pass_dlg');
+			$('#cz').prev().addClass('change_pass');
+			$('#yjsz').parent().addClass('pass_dlg');
+			$('#yjsz').prev().addClass('change_pass');
+			$('#czwc').parent().addClass('pass_dlg');
+		})
+
+		function operation() {                            
+			return "<button class='btn_gg btn_ql' onclick='$(\"#xq\").dialog(\"open\")'>详情</button><button class='btn_gg btn_red ml15' onclick='$(\"#cz\").dialog(\"open\")'>充值</button>";
+		}
+
+		function callme(value,row,index) 
+		{    
+			if(row.imagesid==0)                        
+				return "<img class='mt5' src='images/b_jq_red.png'>";
+			if(row.imagesid==1)
+				return "<img class='mt5' src='images/c_dq.png'>";
+		}
+	</script>
+</body>
+</html>
