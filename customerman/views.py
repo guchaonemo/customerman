@@ -16,6 +16,7 @@ def Login(request):
 	return render(request,'basicInfo.html',locals())
 
 def NumberMan(request):
+    user_name = "nemo"
     return render(request, 'NumberMan.html', locals())
 
 
